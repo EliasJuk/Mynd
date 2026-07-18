@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'shared/widgets/collapsible_sidebar.dart';
+import 'shared/widgets/user_menu_footer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,23 @@ class MyApp extends StatelessWidget {
                 SidebarItem(id: '2', title: 'chat-2', type: SidebarItemType.conversation),
               ],
               onItemTap: (item) => debugPrint('Clicou em ${item.title}'),
+              footerBuilder: (collapsed) => UserMenuFooter(
+                userName: 'user',
+                collapsed: collapsed,
+                onSelected: (action) {
+                  switch (action) {
+                    case UserMenuAction.settings:
+                      debugPrint('Abrir configurações');
+                      break;
+                    case UserMenuAction.logout:
+                      debugPrint('Sair');
+                      break;
+                    default:
+                      debugPrint('Ação: $action');
+                      break;
+                  }
+                },
+              ),
             ),
             const Expanded(
               child: Center(child: Text('Hello World!')),

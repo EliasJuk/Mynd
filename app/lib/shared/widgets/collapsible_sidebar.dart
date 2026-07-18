@@ -19,6 +19,7 @@ class CollapsibleSidebar extends StatefulWidget {
   final ValueChanged<SidebarItem>? onItemTap;
   final double expandedWidth;
   final double collapsedWidth;
+  final Widget Function(bool collapsed)? footerBuilder;
 
   const CollapsibleSidebar({
     super.key,
@@ -26,6 +27,7 @@ class CollapsibleSidebar extends StatefulWidget {
     this.onItemTap,
     this.expandedWidth = 240,
     this.collapsedWidth = 64,
+    this.footerBuilder,
   });
 
   @override
@@ -81,6 +83,10 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar> {
               },
             ),
           ),
+          if (widget.footerBuilder != null) ...[
+            const Divider(color: Colors.white24, height: 1),
+            widget.footerBuilder!(_collapsed),
+          ],
         ],
       ),
     );
